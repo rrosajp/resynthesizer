@@ -67,7 +67,7 @@ debug = False
     
 def new_resized_image(image, resize_ratio):
   # Create new image resized by a ratio from *selection* in the old image
-  
+
   (is_selection, ulx, uly, lrx, lry) = pdb.gimp_selection_bounds(image)
   if not is_selection :
     # Resynthesizer will use the entire source image as corpus.
@@ -79,7 +79,7 @@ def new_resized_image(image, resize_ratio):
     # Resize new image in proportion to selection in source
     new_width = int((lrx - ulx) * resize_ratio)
     new_height = int((lry - uly) * resize_ratio)
-    
+
   new_basetype = pdb.gimp_image_base_type(image)  # same as source
   new_layertype = pdb.gimp_drawable_type(pdb.gimp_image_get_active_layer(image))
   new_image = pdb.gimp_image_new(new_width, new_height, new_basetype)
