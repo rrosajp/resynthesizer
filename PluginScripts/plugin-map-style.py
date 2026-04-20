@@ -216,7 +216,7 @@ def copy_selection_to_image(drawable) :
   return image_copy, layer_copy
     
 
-def synchronize_contrast( drawable, source_drawable, percent_transfer) :
+def synchronize_contrast( drawable, source_drawable, percent_transfer):
   '''
   Adjust contrast of source, to match target.
   Adjustment depends inversely on percent_transfer.
@@ -232,8 +232,8 @@ def synchronize_contrast( drawable, source_drawable, percent_transfer) :
   # 2.5 is from experimentation with gimp_brightness_contrast which seems linear in its effect.
   contrast_control = (mean - source_mean) * 2.5 * (1 - (percent_transfer / 100))
   # clamp to valid range (above formula is lazy, ad hoc)
-  if contrast_control < -127: contrast_control = -127
-  if contrast_control > 127: contrast_control = 127
+  contrast_control = max(contrast_control, -127)
+  contrast_control = min(contrast_control, 127)
   pdb.gimp_brightness_contrast(source_drawable, 0, contrast_control)
   # For experimentation, print new values
   source_mean, source_deviation, source_median, pixels, count, percentile = pdb.gimp_histogram(
